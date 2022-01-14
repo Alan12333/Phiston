@@ -1,0 +1,14 @@
+#Para direccionar a paginas con eores ya pedefinidos
+ErrorDocument 403 http://busman.com.mx/error403
+ErrorDocument 404 http://busman.com.mx/error404
+ErrorDocument 500 http://busman.com.mx/error500
+
+#Para definir rutas amigables
+RewriteEngine On
+RewriteRule ^([a-zA-Z0-9/]+)$ index.php?action=$1&?id=$1
+
+#Bloquear la lectura
+<files .htaccess>
+order allow,deny
+deny from all
+</files>

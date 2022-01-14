@@ -1,0 +1,1 @@
+//Js Principal, este lo toma de forma global.
