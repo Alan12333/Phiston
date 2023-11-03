@@ -35,19 +35,18 @@ class Blocks
                 if(is_object($data) == true || is_array($data)==true)
                 {
                     header("Content-Type:application/json");
-                    // header('Access-Control-Allow-Origin: *');
-                    // header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
-                    header("Access-Control-Allow-Origin: *");
-                    header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
-                    header("Access-Control-Allow-Headers: *");
+                    header('Access-Control-Allow-Origin: *');
+                    header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
+                    header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+                    header("Allow: GET, POST, OPTIONS, PUT, DELETE");
                     echo json_encode($data);
                 }
             }
             else
             {
-                if($this->display==false)
+                if($this->display==true)
                 {
-                    PrintErrors::PrintScreenError("No existe el metodo en la clase <b>".$this->controller."<b>", "206");
+                    echo "No existe el metodo en la clase ".$this->controller;
                 }
                 else
                 {
@@ -57,9 +56,9 @@ class Blocks
         }
         else
         {
-            if($this->display==false)
+            if($this->display==true)
             {
-                PrintErrors::PrintScreenError("No existe el controlador ni la clase".$this->controller, "206");
+                echo "No existe el controlador ni la clase ".$this->controller;
             }
             else
             {

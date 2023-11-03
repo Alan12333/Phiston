@@ -19,7 +19,7 @@ function Inits($controller, $blocks, $action, $block)
             }
             else
             {
-                if($block->display==false)
+                if($block->display==true)
                 {
                     PrintErrors::PrintScreenError("No existe el método dentro del Controlador " . $controller,"203");
                 }
@@ -33,7 +33,7 @@ function Inits($controller, $blocks, $action, $block)
     }
     else
     {
-        if($block->display==false)
+        if($block->display==true)
         {
             PrintErrors::PrintScreenError("No existe el bloque del controlador principal", "201");
         }
