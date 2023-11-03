@@ -1,0 +1,1 @@
+<!-- Se crea un template html al cual se le puede incluir php si asi se desea trabajar -->

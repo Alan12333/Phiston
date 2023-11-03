@@ -1,0 +1,17 @@
+<?php
+$enviroment = [];
+
+
+$database = [
+    "driver"    =>"mysql",
+    "host"      =>"localhost",
+    "user"      =>"",
+    "pass"      =>"",
+    "database"  =>"",
+    "port"      =>"3306",
+    "charset"   =>"utf8"
+];
+
+return $enviroment;
+
+?>

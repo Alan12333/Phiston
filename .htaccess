@@ -1,0 +1,19 @@
+#Para definir rutas amigables
+RewriteEngine On
+RewriteRule ^([a-zA-Z0-9_/-]+)$ index.php?action=$1&?id=$1[R=301,L]
+
+<IfModule mod_negotiation.c>
+    Options -MultiViews
+</IfModule>
+#Para direccionar a paginas con eores ya predefinidos
+ErrorDocument 403 http://localhost/error403
+ErrorDocument 404 http://localhost/error404
+ErrorDocument 500 http://localhost/error500
+
+
+#Bloquear la lectura
+<files .htaccess>
+order allow,deny
+deny from all
+</files>
+Header always set X-Frame-Options "SAMEORIGIN"
