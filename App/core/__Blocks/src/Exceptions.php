@@ -1,5 +1,5 @@
 <?php
-class RolsException{
+class ThrowException{
 
     
     public static function setErrorHandler() {
@@ -48,5 +48,3 @@ class RolsException{
         <?php
     }
 }
-
-?>

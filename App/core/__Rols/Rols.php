@@ -16,111 +16,78 @@ require_once (dirname(__FILE__).'/src/Definitions.php');
  */
 class Rols extends Definitions
 {
-    /**
-     * 
-     * Variable privada para instanciar el objeto Definitions
-     */
-
     /** 
-     * Function to check actual rol in some database
+     * Función para verificar el rol en alguna base de datos
      * 
      * @return callable||null
      * 
      */
     public static function  Check($module, $condition , $function=null)
     {
-        //Comprueba que la condicoin no sea nula
-        if($condition != null)
-        {
-            //Ejecuta la condicion en la funcion Execute Condition de la clase Definitions si se cumple la condicion retorna la funcion anonima
-            if(self::ExecuteCondition($condition)===true)
+        try{
+            //Comprueba que la condicion no sea nula
+            if($condition != null)
             {
-                return self::ReturnValues($module, $function);
+                //Ejecuta la condicion en la funcion Execute Condition de la clase Definitions si se cumple la condicion retorna la funcion anonima
+                if(self::ExecuteCondition($condition)===true)
+                {
+                    return self::ReturnValues($module, $function);
+                }
+                else
+                {
+                    return self::ReturnValues($module, $condition);
+                }
             }
-            else
-            {
-                return self::ReturnValues($module, $condition);
-            }
+        } catch(Error $e){
+            return self::CreateAlert($e);
         }
     }
 
     public static function ShowRol()
     {
-        return self::GetRol();
+        try
+        {
+            return self::GetRol();
+        } catch(Error $e){
+            return self::CreateAlert($e);
+        }
     }
 
     
+    /**
+     * 
+     * Función para verificar si el usuario tiene acceso al contenido de la pagina o ruta 
+     * a la que se intenta acceder
+     * 
+     * @return callable||Array 
+     */
 
-    // public function CheckPage(callable $call,$module="", $array=["message"=>"","time"=>1000,"url"=>""])
-    // {
-    //     if($this->Verified($module)==true)
-    //     {
-    //         return $call($param = null);
-    //     }
-    //     else
-    //     {   
-    //         $this->Choice($array);
-    //     }
-    // }
-    
-    public function Choice($array)
+    public static function CheckPage($module , $array=["layout"=>"Pagina inaccesible contactar con soporte","time"=>2000,"url"=>""], $function=null, $condition=null)
     {
-        if(isset($array["layout"]) != "")
-        {
-            echo $array["layout"];
-        }
-        if(isset($array["time"]) != "")
-        {
-            if(isset($array['url']))
+        try{
+            if($array == NULL || $array == [])
             {
-                if(isset($array['url'],) === "")
+                $array=["layout"=>"Pagina inaccesible contactar con soporte","time"=>2000,"url"=>""];
+            }
+            if($condition !== null)
+            {
+                //Ejecuta la condicion en la funcion Execute Condition de la clase Definitions si se cumple la condicion retorna la funcion anonima
+                if(self::ExecuteCondition($condition)===true)
                 {
-                    ?>
-                        <script>
-                            window.location="./";
-                        </script>
-                    <?php
+                    return self::Pagecheck($module, $function, $condition, $array);
                 }
                 else
                 {
-                    ?>
-                    <script>
-                        setTimeout(() => {
-                            window.location="<?php echo $array['url']?>";
-                        }, <?php echo $array["time"]?>);
-                    </script>
-                <?php  
+                    return self::Choice($array);
                 }
             }
             else{
-                ?>
-                    <script>
-                        setTimeout(() => {
-                            window.location="./";
-                        }, <?php echo $array["time"]?>);
-                    </script>
-                <?php
+                return self::Pagecheck($module, $function, $condition, $array);
             }
-        }
-        else if(isset($array['url']))
-        {
-            if($array['url'] == "")
-            {
-                ?>
-                    <script>
-                        window.location="./";
-                    </script>
-                <?php
-            }
-            else
-            {
-                ?>
-                <script>
-                    window.location="<?php echo $array['url']?>";
-                </script>
-            <?php  
-            }
+        } catch(Error $e){
+            return self::CreateAlert($e);
         }
     }
+    
 }
 

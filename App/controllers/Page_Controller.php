@@ -1,11 +1,11 @@
 <?php
-
 class Page_Controller extends Views
 {
+    public $user = "";
     /**
      * Si usaras un modelo la variable debe ser protected por ejemplo
      * 
-     * protected $usuario];
+     * protected $usuario;
      */
 
     public function __construct()

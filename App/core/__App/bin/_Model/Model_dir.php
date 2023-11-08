@@ -195,6 +195,20 @@ class Model_Dir
         }
     }
 
+    public function BETWEEN($atr,$value_1,$value_2)
+    {
+        if($atr=="" && $value = "")
+        {
+            $this->sql_select="Error";
+        }
+        else
+        {
+            $separate = explode(";",$this->sql_select);
+            $this->sql_select = $separate[0]." WHERE $atr BETWEEN '$value_1' AND '$value_2';";
+        }
+    }
+
+
     public function AND($atr ="",$type="",$value="")
     {
         if($atr=="" && $value = "")
@@ -567,13 +581,14 @@ class Model_Dir
         }
         return $consulta;
     }
-
+    
     public function SaveRecords($arg = "", $token="")
     {
         if($token != "")
         {
             if($token == Ses::Token())
             {
+                
                 return $this->AccesSave($arg);
             }
             else
@@ -605,13 +620,12 @@ class Model_Dir
             return $this->model->$valor;
         }
         else{
-            $this->ObtenerAtributos();
+            $this-> ObtenerAtributos();
         }
     }
 
     private function AccesSave($arg="")
     {
-        
         $cadena2 = "";
         $cadena1 = "";
         $obtener = $this-> ObtenerAtributos();
@@ -816,5 +830,12 @@ class Model_Dir
             $result = $consulta->fetch_assoc();
             return $result[$atrb];
         }
+    }
+
+    public function ExecuteQuery($cmd)
+    {
+        $db = DB::Instance();
+        $consulta = mysqli_query($db->Connection(), $cmd);
+        return $consulta;
     }
 }

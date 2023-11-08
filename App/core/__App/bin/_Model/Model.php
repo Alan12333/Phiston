@@ -53,6 +53,12 @@ class Model
         return $this;
     }
 
+    function BETWEEN($atr, $elemnt_1, $element2)
+    {
+        $this->result = $this->consults->BETWEEN($atr,$elemnt_1,$element2);
+        return $this;
+    }
+
 
     function AND( $atr ="",$type="",$value="")
     {
@@ -170,39 +176,7 @@ class Model
     {
         if($_SERVER['REQUEST_METHOD'] === "POST")
         {
-            if(isset($_POST['method']) == "POST")
-            {
-                if(isset($_POST['token']))
-                {
-                    if(Ses::Token() == $_POST['token'])
-                    {
-                        return $this->consults->extractvalue($value);
-                    }
-                    else
-                    {
-                        $db = db::Instance();
-                        $query = "SELECT * FROM tokens WHERE token ='$_POST[token]'";
-                        $sql = mysqli_query($db->Connection(), $query);
-                        if($sql->num_rows > 0)
-                        {
-                            return $this->consults->extractvalue($value);
-                        }
-                        else
-                        {
-                            http_response_code(401);
-                            require_once  dirname(__FILE__,4)."/__Blocks/Folder/Views/401.php";
-                        }
-                    }
-                } else {
-                    http_response_code(401);
-                    require_once  dirname(__FILE__,4)."/__Blocks/Folder/Views/401.php";
-                }
-            }
-            else
-            {
-                http_response_code(401);
-                require_once  dirname(__FILE__,4)."/__Blocks/Folder/Views/401.php";
-            }
+            return $this->consults->extractvalue($value);
         }
         else
         {
@@ -362,5 +336,12 @@ class Model
     public function GetData()
     {
         $this->consults->ObtenerAtributos();
+    }
+
+    public function ExecuteQuery($cmd)
+    {
+        $this->result =  $this->consults->ExecuteQuery($cmd);
+        $data = json_encode($this->result,JSON_UNESCAPED_UNICODE);
+        return $data;
     }
 }

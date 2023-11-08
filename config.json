@@ -1,5 +1,5 @@
 {
-    "ProjectName":"PHISTON",
+    "ProjectName":"phiston",
     "route":"http://localhost",
     "favicon":"icon.png",
     "production":false

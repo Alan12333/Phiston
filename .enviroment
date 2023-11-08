@@ -2,12 +2,12 @@
 $enviroment = [];
 
 
-$database = [
+$enviroment = [
     "driver"    =>"mysql",
     "host"      =>"localhost",
-    "user"      =>"",
-    "pass"      =>"",
-    "database"  =>"",
+    "user"      =>"busman",
+    "pass"      =>"134679",
+    "database"  =>"test",
     "port"      =>"3306",
     "charset"   =>"utf8"
 ];

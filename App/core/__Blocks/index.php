@@ -2,6 +2,7 @@
 include dirname(__FILE__)."/blocks.php";
 include dirname(__FILE__,4)."/pages.php";
 include dirname(__FILE__)."/Folder/DisplayErrors.php";
+include (dirname(__FILE__).'/src/Exceptions.php');
 include dirname(__FILE__,2)."/__DB/DB.php";
 $block = new Blocks($controller,$action);
 Inits($controller, $blocks, $action, $block,);
