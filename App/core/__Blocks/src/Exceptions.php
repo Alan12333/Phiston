@@ -24,27 +24,27 @@ class ThrowException{
     {
         $filecontent = file($error->getFile());
         ?>
-            <body style="background:rgba(0,0,0,0.7); font-family:Arial, Helvetica, sans-serif; overflow:hidden;">
+            <div style="width:100%; background:rgba(0,0,0,0.7); top:0; height:100vh; position:absolute; z-index:10000; font-family:Arial, Helvetica, sans-serif; overflow:hidden;">
                 <div style=" width:90%; padding:10px; border-radius:5px;">
-                    <p style="font-size: 22px; font-weight:bold; color:#FF3936;">Fatal Error No: <?php echo $error->getCode(); ?></p>
-                    <p style="font-size: 22px; font-weight:bold; color:#FF3936;">El error actual se define como <?php echo $error->getMessage(); ?>, se presenta en el archivo <?php echo $error->getFile(); ?> en la linea <?php echo $error->getLine(); ?></p>
+                    <p style="font-size: 1em; font-weight:bold; color:#FF3936;">Fatal Error No: <?php echo $error->getCode(); ?></p>
+                    <p style="font-size: 1em; font-weight:bold; color:#FF3936;">El error actual se define como <?php echo $error->getMessage(); ?>, se presenta en el archivo <?php echo $error->getFile(); ?> en la linea <?php echo $error->getLine(); ?></p>
                 </div>
-                <pre style="background: #404040; width: 70%; height:70vh; overflow-y:scroll;">
+                <pre style="background: #404040; width: 100%; height:70vh; overflow-y:scroll;">
                     <div style="width: 100%; color:white;">
                         <?php 
                             $lineNumber = 1;
                             foreach($filecontent as $content) {
                                 if($lineNumber ===  $error->getLine()) {
-                                    echo "<span style='color: red'>$lineNumber: $content</span>";
+                                    print( "<span style='color: red;'>$lineNumber: -->>". htmlspecialchars($content)."</span>");
                                 } else {
-                                    echo "$lineNumber: $content";
+                                    print( "$lineNumber:". htmlspecialchars($content));
                                 }
                                 $lineNumber++;
                             }
                         ?>
                     </div>
                 </pre>
-            </body>
+            </div>
         <?php
     }
 }
